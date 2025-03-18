@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block mainbody %}
+<form method="post" class="w-screen h-screen flex flex-col justify-center items-center">
+    {% csrf_token %}
+    <span class="text-red-800 text-xs">{{error_message}}</span>
+    <div>
+      <input class="border-2 rounded-md border-black p-4 m-2" type="text" id="username" name="username" placeholder="Username" required>
+    </div>
+    <div>
+      <input class="border-2 rounded-md border-black p-4 m-2" type="password" id="password" name="password" placeholder="Password" required>
+    </div>
+    <div>
+      <button class="border-2 rounded-md border-black py-2 px-4 m-2" type="submit">Login</button>
+    </div>
+    <p>New user <a class="text-blue-600" href="{% url 'register' %}">SignUp!</a></p>
+</form>
+
+  
+{% endblock %}

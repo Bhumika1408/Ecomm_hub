@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block mainbody %}
+<form method="post" class="w-screen h-screen flex flex-col justify-center items-center">
+    {% csrf_token %}
+    <span class="text-red-800 text-xs">{{error_message}}</span>
+    <div>
+      <input class="border-2 rounded-md border-black p-4 px-8 m-1" type="text" id="username" name="username" placeholder="Username" value="{{username}}" required>
+    </div>
+    <div>
+        <input class="border-2 rounded-md border-black p-4 px-8 m-1" type="text" id="firstname" name="firstname" placeholder="First Name" value="{{f_name}}" required>
+      </div>
+    <div>
+        <input class="border-2 rounded-md border-black p-4 px-8 m-1" type="text" id="lastname" name="lastname" placeholder="Last Name" value="{{l_name}}" required>
+      </div>
+    <div>
+        <input class="border-2 rounded-md border-black p-4 px-8 m-1" type="email" id="email" name="email" placeholder="email" value="{{email}}" required>
+      </div>
+    <div>
+      <input class="border-2 rounded-md border-black p-4 px-8 m-1" type="password" id="password" name="password" placeholder="Password" required>
+    </div>
+    <div>
+        <input class="border-2 rounded-md border-black p-4 px-8 m-1" type="password" id="password1" name="password1" placeholder="Confirm Password" required>
+      </div>
+    <div>
+      <button class="border-2 rounded-md border-black py-2 px-4 m-1" type="submit">Register</button>
+    </div>
+    <p>Existing user <a class="text-blue-600" href="{% url 'login' %}">Login!</a></p>
+</form>
+{% endblock %}

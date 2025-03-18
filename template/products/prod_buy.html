@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block mainbody %}
+<div class="text-white h-full w-84 md:w-96 mx-auto mt-4 pl-8">
+    <form method="post">
+      {% csrf_token %}
+      <label class="mr-2">
+        <input type="radio" name="mode" id="op1" value="cod" onclick="onRadioClick1()">
+        <span class="text-xl">Cash on Delivery</span>
+      </label>
+      <label>
+        <input type="radio" name="mode" id="op2" value="online" onclick="onRadioClick()">
+        <span class="text-xl">online</span>
+      </label>
+      <div class="flex gap-8 my-8">
+        <img class="rounded-lg w-32" src="{{ prod.images.last.image.url }}" alt="{{ product.name }}">
+        <div class="flex flex-col">
+          <p class="text-xl">{{prod.name}}</p>
+          <p class="text-2xl">{{prod.price}}<span> per item</span></p>
+          <div class="flex">
+            <button type="button" class="bg-gray-400 w-8 text-black h-10 rounded-l-xl" onclick="subQT()">-</button>
+            <input type="text" class="text-black text-xl text-center w-16 h-10" value="1" id="quantity" name="quantity">
+            <button type="button" class="bg-gray-400 w-8 text-black h-10 rounded-r-xl" onclick="addQT()">+</button>
+          </div>
+        </div>
+      </div>
+      <p>Ship to : {{customer.address}}</p>
+      <div id="form-pt2" class="hidden">
+        <h2 class="text-xl">card or online details here</h2>
+      </div>
+      <button type="submit" class="text-black bg-white rounded w-36 h-12 text-xl  mx-auto">Buy Now</button>
+    </form>
+</div>
+<script>
+  function onRadioClick(){   
+      var extraform = document.getElementById("form-pt2");
+      extraform.classList.remove("hidden");
+    }
+  function onRadioClick1(){   
+      var extraform = document.getElementById("form-pt2");
+      extraform.classList.add("hidden");
+    }
+    
+      function addQT() {
+        var inpval = document.getElementById("quantity");
+        if (inpval.value == 10){
+          alert("10 products per account are purchaseable")
+        }
+        else{
+          inpval.value = parseInt(inpval.value) + 1;
+      }
+      }
+      
+      function subQT() {
+        var inpval = document.getElementById("quantity");
+        if (inpval.value == 0){
+          alert("the value cannot go below 0")
+        }
+        else{
+          inpval.value = parseInt(inpval.value) - 1;
+      }
+      }
+</script>
+{% endblock %}

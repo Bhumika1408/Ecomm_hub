@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block mainbody %}
+
+<div class="hidden md:flex flex-row gap-4 mx-10 justify-center mt-8">
+    <div class="flex flex-col gap-4 mx-8"> 
+        {% for images in prod_img %}
+        <div class="w-20">
+            <img src="{{images.image.url}}" id="{{images.id}}" onclick="pasteImage({{images.id}})" class="w-full rounded-xl" alt="">
+        </div>
+        {% endfor %}
+    </div>
+    <div id="imagebox" class="w-96">
+        {% if prod_img %}
+            <img class="rounded-xl" src="{{ prod_img.first.image.url }}" alt="">
+        {% endif %}
+    </div>
+    <div class="flex flex-col text-white ml-8">
+        <h1 class="text-4xl">{{product.name}}</h1>
+        <p class="mb-4 text-2xl"> &#x20B9; {{product.price}}</p>
+        <p class="mb-4">{{product.description}}</p>
+        <form method="post" id="addToCart">
+            {% csrf_token %}
+            <input type="hidden" name="type" value="cart">
+            <button class="text-black border-2 w-40 rounded-xl bg-white py-2 mb-4" type="submit">Add To Cart</button>
+        </form>
+        <form method="post" id="buyNow">
+            {% csrf_token %}
+            <input type="hidden" name="type" value="buy">
+            <button class="text-black border-2 w-40 rounded-xl bg-yellow-600 py-2" type="submit">Buy Now</button>
+        </form>
+    </div>
+</div>
+
+<div class="flex md:hidden flex-col gap-4 justify-center mt-8">
+    <div class="flex flex-col text-white mx-auto w-96">
+        <h1 class="text-4xl mb-2">{{product.name}}</h1>
+        <p class="mb-2"> &#x20B9; {{product.price}}</p>
+        <p class="mb-2">{{product.description}}</p>
+    </div>
+    <div class="flex flex-row gap-4 mx-auto"> 
+        {% for images in prod_img %}
+        <div class="w-20">
+            <img src="{{images.image.url}}" id="{{images.id}}" onclick="pasteImage1({{images.id}})" class="w-full rounded-xl" alt="">
+        </div>
+        {% endfor %}
+    </div>
+    <div id="imagebox1" class="mx-auto w-80">
+        {% if prod_img %}
+            <img class="rounded-xl" src="{{ prod_img.first.image.url }}" alt="">
+        {% endif %}
+    </div>
+    <div class="mx-auto">
+        <form method="post" id="addToCart">
+            {% csrf_token %}
+            <input type="hidden" name="type" value="cart">
+            <button class="border-2 w-40 rounded-xl bg-white py-2 mb-4" type="submit">Add To Cart</button>
+        </form>
+        <form method="post" id="buyNow">
+            {% csrf_token %}
+            <input type="hidden" name="type" value="buy">
+            <button class="border-2 w-40 rounded-xl bg-yellow-600 py-2" type="submit">Buy Now</button>
+        </form>
+    </div>    
+</div>
+
+
+<script>
+  function pasteImage(imageid) {
+    const imageElement = document.getElementById(imageid);
+    const imageClone = imageElement.cloneNode(true);
+    const imageBoxDiv = document.getElementById('imagebox');
+    imageBoxDiv.innerHTML="";
+    imageBoxDiv.appendChild(imageClone);
+  }
+function pasteImage1(imageid) {
+      const imageElement = document.getElementById(imageid);
+      const imageClone = imageElement.cloneNode(true);
+      const imageBoxDiv = document.getElementById('imagebox1');
+      imageBoxDiv.innerHTML="";
+      imageBoxDiv.appendChild(imageClone);
+    }
+</script>
+
+{% endblock %}

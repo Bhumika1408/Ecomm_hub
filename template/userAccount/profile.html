@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block mainbody %}
+<div class="text-xl text-white px-8 my-8">
+    <div class="">
+        {% for item in cart %}
+            <p>{{item.name}}</p>
+        {% endfor %}
+    </div>
+    <div>
+        {% for order in orders %}
+        <div class="border--gray-500 text-black bg-gray-500 border-2 rounded-md px-4 md:px-8 py-4 my-2 mx-2 md:mx-8">  
+            {{forloop.counter}}.
+            <span>{{order.product.name}}</span>
+            <span class="ml-6">Quantity: {{order.qty}}</span>
+            <p class="ml-6">Order Status: {{order.order_status}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<a href="{% url 'logout' %}" class="text-xl border-2 border-black bg-white px-8 py-2 rounded-xl">Logout</a>
+{% endblock %}
